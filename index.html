@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+
+    <link href="https://fonts.googleapis.com/css?family=Crete+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>A.S.PORTUGAISE DE CERIZAY</title>
+</head>
+
+<body>
+    <header>
+
+        <section id="navig">
+            <div class="menu1">
+                <ul>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Actualités</a></li>
+                    <li><a href="#">Le club</a></li>
+
+                </ul>
+            </div>
+            <div class="logo"> <img src="logoclub2.jpg" alt="logo du club"></div>
+            <div class="menu2">
+                <ul>
+                    <li><a href="#">Equipes</a></li>
+                    <li><a href="#">Convocations</a></li>
+                    <li><a href="#contact">Contacts</a></li>
+                </ul>
+            </div>
+        </section>
+    </header>
+
+    <!-- ici changement pour les rencontres -->
+    <h1>Programmes du week-end</h1>
+    <section id="programme">
+
+        <div class="first">
+            <div class="champions1">
+                <i class="fas fa-trophy"></i>
+                <h2>Division 3</h2>
+            </div>
+            <div class="rencontre">
+                <!-- ici rencontre adversaire + logo -->
+                <img src="logoclub.jpg" alt="logo-comores">
+                <h3>A.S PORTUGAIS CERIZAY - E.S BOCAGE</h3>
+                <img src="logo-bocage.jpg" alt="logo du club">
+            </div>
+            <div class="info1">
+                <!-- INFO SUR LIEUX, DATE ET HEURE  -->
+                <h4>Dimanche 16 février - 15h - Stade Jean Nivet Cerizay</h4>
+            </div>
+        </div>
+
+        <div class="second">
+            <div class="champions2">
+                <i class="fas fa-trophy"></i>
+                <!-- <h2>Division 5 -1er niveau-</h2> -->
+                <h2>Match amical</h2>
+            </div>
+            <div class="rencontre">
+                <!-- ici rencontre adversaire + logo -->
+                <img src="logoclub.jpg" alt="logo du club">
+                <h3> A.S. PORTUGAIS CERIZAY - A.C.S MAHORAIS 2 </h3>
+                <img src="logo-mahorais.jpg" alt="logo boisme">
+            </div>
+            <div class="info2">
+                <!-- INFO SUR LIEUX, DATE ET HEURE  -->
+                <h4>Dimanche 16 février - 13h - Stade Valette Bressuire</h4>
+            </div>
+        </div>
+    </section>
+    <section id="actu">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Article du jour</h2>
+                </div>
+                <div class="col-md-6">
+                    <div class="article">
+                        <a href="#" class="button-1">Lire l'article</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                {{#each posts}}
+                <div class="column">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="{{image}}" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="content">
+                                <a href="/articles/{{_id}}">
+                                    <h2>{{title}}</h2>
+                                </a>
+                                <p>{{{content}}}</p>
+                                <p>Publié par {{author}}, le {{moment createDate format="DD/MM/YYYY"}}</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each }}
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <section id="contact">
+            <div class="wrapper">
+                <h3>Contactez-nous</h3>
+                <p>Contactez-nous pour plus de renseignements concernant le club et pour organiser des rencontres
+                    amicales !</p>
+                <form>
+                    <label for="name"></label>
+                    <input type="text" id="name" placeholder="Votre nom">
+
+                    <label for="club"></label>
+                    <input type="text" id="club" placeholder="Votre club">
+
+                    <label for="choix"></label>
+                    <select name="choix" id="choix">
+                        <option value="information">Information</option>
+                        <option value="match">Match</option>
+                    </select>
+                    <label for="Email"></label>
+                    <input type="text" id="mail" placeholder="Votre email">
+
+                    <a href="#"><input type="submit" value="OK" class="button-2"></a>
+
+                </form>
+
+            </div>
+            <div class="reseaux">
+                <a href="#"><i class="fab fa-facebook-square"></i></a>
+
+                <a href="#"><i class="fab fa-twitter-square"></i></a>
+
+            </div>
+
+        </section>
+
+    </footer>
