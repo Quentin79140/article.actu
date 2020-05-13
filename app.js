@@ -5,15 +5,16 @@ const mongoose = require("mongoose");
 const exphbs = require("express-handlebars")
 
 
-
 const app = express()
+
+const Post = require("./database/models/Article")
 
 //express Static
 app.use(express.static('public'));
 
 
 //Mongoose 
-mongoose.connect('mongodb://localhost:27017/blog')
+ mongoose.connect('mongodb://localhost:27017/blog')
 
 //bodyParser
 app.use(bodyParser.urlencoded({
@@ -29,8 +30,11 @@ app.set('view engine', 'hbs');
 
 // route 
 
-app.get(("/"), (req, res) => {
-    res.render("home");
+app.get(("/"), async (req, res) => {
+    const posts = await Post.find({})
+
+    res.render("home", {posts} );
+    
 });
 
 app.get("/contact"), (req,res) => {
@@ -43,17 +47,14 @@ app.get("/article/add", (req, res) => {
     res.render("article/add")
 })
 
-const Post = require("./database/models/Article")
+// POST 
+
 app.post("/article/post", (req, res) => {
-   Post.create(req.body, (error, post) => {
-       res.redirect("/")
-   })   
+
+    Post.create(req.body, (error, post) => {
+        res.redirect("/")
+    }) 
 })
-
-
-
-
-
 
 
 app.listen(4000, function(){

@@ -16,6 +16,8 @@
     </div>
     <div class="container">
         <div class="columns">
+
+            {{#each posts}}
             <div class="column">
                 <div class="card">
                     <div class="card-image">
@@ -26,14 +28,15 @@
                     <div class="card-content">
                         <div class="content">
                             <a href="">
-                                <h2>titre</h2>
+                                <h2>{{title}}</h2>
                             </a>
-                            <p>texte</p>
+                            <p>{{content}}</p>
+                            <time datetime=""></time>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
+        {{/each}}
     </div>
 </section>
