@@ -1,42 +1,43 @@
 <section class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h1 class="title">Bienvenue</h1>
-                <p class="is-size-5">
-                    Ici vous pourrez suivre toutes l'actualités du football 79
-                </p>
-            </div>
-            <div class="col-md-6 ">
-                    <img class="is-size-5" src="/ressource/image/image.presentation.jpeg" alt="">
-            </div>
-                
-            
-        </div>
-    </div>
-    <div class="container">
-        <div class="columns">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="title">Bienvenue</h1>
+        <p class="is-size-5">
+          Ici vous pourrez suivre toutes l'actualités du football 79
+        </p>
+      </div>
+      <div class="col-md-6 ">
+        <img class="is-size-5" src="/ressource/image/image.presentation.jpeg" alt="">
+      </div>
 
-            {{#each posts}}
-            <div class="column">
-                <div class="card">
-                    <div class="card-image">
-                        <figure class="image is-96x96">
-                            <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
-                        </figure>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <a href="">
-                                <h2>{{title}}</h2>
-                            </a>
-                            <p>{{content}}</p>
-                            <time datetime=""></time>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{/each}}
+
     </div>
+  </div>
+  <div class="container">
+    <div class="columns">
+
+      {{#each posts}}
+      <div class="column">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-96x96">
+              <img src="https://bulma.io/images/placeholders/128x128.png" alt="Placeholder image">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="content">
+              <a href="">
+                <h2>{{title}}</h2>
+              </a>
+              <p>{{content}}</p>
+              <p>Publié par {{author}}, le {{moment createDate format="DD.MM.YYYY"}}</p>
+              <time datetime=""></time>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
 </section>

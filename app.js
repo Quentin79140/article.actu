@@ -16,6 +16,11 @@ app.use(express.static('public'));
 //Mongoose 
  mongoose.connect('mongodb://localhost:27017/blog')
 
+// Handlebars.moment
+var Handlebars = require("handlebars");
+var MomentHandler = require("handlebars.moment");
+MomentHandler.registerHelpers(Handlebars);
+
 //bodyParser
 app.use(bodyParser.urlencoded({
     extended: true
@@ -31,6 +36,7 @@ app.set('view engine', 'hbs');
 // route 
 
 app.get(("/"), async (req, res) => {
+
     const posts = await Post.find({})
 
     res.render("home", {posts} );
@@ -42,9 +48,13 @@ app.get("/contact"), (req,res) => {
 }
 
 //ARTICLE
+app.get("/article/:id", async (req, res) => {
+    const articles = await Post.findById(req.params.id)
+    res.render("article", {articles})
+})
 
-app.get("/article/add", (req, res) => {
-    res.render("article/add")
+app.get("/articles/add", (req, res) => {
+    res.render("articles/add")
 })
 
 // POST 

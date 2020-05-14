@@ -4,7 +4,11 @@ const ArticleSchema = new mongoose.Schema({
     title: String,
     intro: String,
     content: String,
-    author:String
+    author:String,
+    createDate: {
+        type: Date, 
+        default : new Date()
+    }
 
 })
 
