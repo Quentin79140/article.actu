@@ -2,7 +2,9 @@ const handlebars = require("handlebars");
 const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
-const exphbs = require("express-handlebars")
+const exphbs = require("express-handlebars");
+const fileUpload = require("express-fileupload");
+const path = require("path");
 
 
 const app = express()
@@ -14,7 +16,7 @@ app.use(express.static('public'));
 
 
 //Mongoose 
- mongoose.connect('mongodb://localhost:27017/blog')
+mongoose.connect('mongodb://localhost:27017/blog')
 
 // Handlebars.moment
 var Handlebars = require("handlebars");
@@ -23,13 +25,18 @@ MomentHandler.registerHelpers(Handlebars);
 
 //bodyParser
 app.use(bodyParser.urlencoded({
-    extended: true
+  extended: true
 }));
 
+//express file upload 
+app.use(fileUpload())
 
 //route
 
-app.engine('hbs', exphbs({defaultLayout: "main", extname: "hbs"}));
+app.engine('hbs', exphbs({
+  defaultLayout: "main",
+  extname: "hbs"
+}));
 app.set('view engine', 'hbs');
 
 
@@ -37,37 +44,59 @@ app.set('view engine', 'hbs');
 
 app.get(("/"), async (req, res) => {
 
-    const posts = await Post.find({})
+  const posts = await Post.find({})
 
-    res.render("home", {posts} );
-    
+  res.render("home", {
+    posts
+  });
+
 });
 
-app.get("/contact"), (req,res) => {
-    res.render("contact")
+app.get("/contact"), (req, res) => {
+  res.render("contact")
 }
 
 //ARTICLE
 app.get("/article/:id", async (req, res) => {
-    const articles = await Post.findById(req.params.id)
-    res.render("article", {articles})
+  const articles = await Post.findById(req.params.id)
+  res.render("article", {
+    articles
+  })
 })
 
 app.get("/articles/add", (req, res) => {
-    res.render("articles/add")
+  res.render("articles/add")
+
+
 })
 
 // POST 
 
 app.post("/article/post", (req, res) => {
 
-    Post.create(req.body, (error, post) => {
-        res.redirect("/")
-    }) 
+  const { image } = req.files
+  const uploadFile = path.resolve(__dirname, "public/articles", image.name)
+  image.mv(uploadFile, (error) => {
+    Post.create(
+      {
+        ...req.body,
+        image : `/articles/${image.name}`
+      }
+      , (error, post) => {
+      res.redirect("/")
+    })
+  })
+})
+
+//add fichier
+
+
+
+
+
+app.listen(4000, function () {
+  console.log("écoute sur le port 4000");
+
 })
 
 
-app.listen(4000, function(){
-    console.log("écoute sur le port 4000");
-    
-})
