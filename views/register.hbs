@@ -1,0 +1,53 @@
+<section class="section">
+  <div class="container is-fullhd">
+
+    <form action="/user/register" method="POST" enctype="multipart/form-data">
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" name="name" placeholder="Text input">
+        </div>
+      </div>
+
+
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" type="email" name="email" placeholder="Email input" value="">
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-exclamation-triangle"></i>
+          </span>
+        </div>
+
+      </div>
+      <div class="field">
+        <label class="label">Mot de passe</label>
+        <p class="control has-icons-left">
+          <input class="input" type="password" name="password" placeholder="Password">
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+      </div>
+
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link">Enregistrer</button>
+        </div>
+        <div class="control">
+          <button class="button is-link is-light">Fermer</button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+
+
+
+</section>

@@ -88,8 +88,17 @@ app.post("/article/post", (req, res) => {
   })
 })
 
-//add fichier
+//User
+app.get("/register", (req, res) => {
+  res.render("register")
+})
+ const User = require("./database/models/User");
+app.post("/user/register", (req, res) => {
 
+  User.create(req.body, (error, user) => {
+    res.redirect("/")
+  })
+})
 
 
 
