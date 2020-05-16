@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const exphbs = require("express-handlebars");
 const fileUpload = require("express-fileupload");
 const path = require("path");
-
+const bcrypt = require("bcrypt");
 
 const app = express()
 
@@ -74,38 +74,75 @@ app.get("/articles/add", (req, res) => {
 
 app.post("/article/post", (req, res) => {
 
-  const { image } = req.files
+  const {
+    image
+  } = req.files
   const uploadFile = path.resolve(__dirname, "public/articles", image.name)
   image.mv(uploadFile, (error) => {
-    Post.create(
-      {
-        ...req.body,
-        image : `/articles/${image.name}`
-      }
-      , (error, post) => {
+    Post.create({
+      ...req.body,
+      image: `/articles/${image.name}`
+    }, (error, post) => {
       res.redirect("/")
     })
   })
 })
 
 //User
-app.get("/register", (req, res) => {
+app.get("/user/register", (req, res) => {
   res.render("register")
 })
- const User = require("./database/models/User");
+const User = require("./database/models/User");
 app.post("/user/register", (req, res) => {
 
   User.create(req.body, (error, user) => {
+    if (error) {               
+      const registerError = Object.keys(error.errors).map(key => error.errors[key].message)
+
+      req.flash("registerError", registerError)
+      req.flash("data", req.body)
+
+      return res.redirect("/user/create")
+    }
     res.redirect("/")
   })
 })
+app.get("/user/login", (req, res) => {
+  res.render("login")
+})
 
+app.post("/user/login", (req, res) => {
+  const {
+    email,
+    password
+  } = req.body;
 
+  User.findOne({
+    email
+  }, (error, user) => {
+    if (user) {
+      bcrypt.compare(password, user.password, (error, same) => {
+        if (same) {
+
+          req.session.userId = user._id
+
+          res.redirect("/")
+        } else {
+          res.redirect("/user/login")
+        }
+      })
+    } else {
+      return res.redirect("/user/login")
+    }
+  })
+})
+app.get("/user/logout", (req, res) => {
+    req.session.destroy(() => {
+      res.redirect("/")
+    })
+})
 
 
 app.listen(4000, function () {
   console.log("écoute sur le port 4000");
-
 })
-
-
