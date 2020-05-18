@@ -143,6 +143,11 @@ app.get("/user/logout", (req, res) => {
 })
 
 
+//contact
+app.get("/contact", (req, res) => {
+  res.render("contact")
+})
+
 app.listen(4000, function () {
   console.log("écoute sur le port 4000");
 })
