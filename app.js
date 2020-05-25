@@ -6,17 +6,28 @@ const exphbs = require("express-handlebars");
 const fileUpload = require("express-fileupload");
 const path = require("path");
 const bcrypt = require("bcrypt");
+const session = require("express-session");
 
 const app = express()
 
 const Post = require("./database/models/Article")
 
+//express-session
+app.use(session({
+  secret: 'securite',
+  name: 'biscuit'
+}))
 //express Static
 app.use(express.static('public'));
 
 
 //Mongoose 
-mongoose.connect('mongodb://localhost:27017/blog')
+mongoose.connect("mongodb+srv://quentin:Zidane-10@article-umnus.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true}) 
+.then(() => {
+  console.log('connected to database');
+}).catch(() => {
+  console.log('failed connected to database');
+});
 
 // Handlebars.moment
 var Handlebars = require("handlebars");
@@ -57,6 +68,7 @@ app.get("/contact"), (req, res) => {
 }
 
 //ARTICLE
+
 app.get("/article/:id", async (req, res) => {
   const articles = await Post.findById(req.params.id)
   res.render("article", {
@@ -65,9 +77,10 @@ app.get("/article/:id", async (req, res) => {
 })
 
 app.get("/articles/add", (req, res) => {
-  res.render("articles/add")
 
-
+  if(req.session.userId){
+    res.render("articles/add")
+  }
 })
 
 // POST 
@@ -93,6 +106,7 @@ app.get("/user/register", (req, res) => {
   res.render("register")
 })
 const User = require("./database/models/User");
+
 app.post("/user/register", (req, res) => {
 
   User.create(req.body, (error, user) => {
@@ -127,6 +141,7 @@ app.post("/user/login", (req, res) => {
           req.session.userId = user._id
 
           res.redirect("/")
+        
         } else {
           res.redirect("/user/login")
         }
@@ -148,6 +163,6 @@ app.get("/contact", (req, res) => {
   res.render("contact")
 })
 
-app.listen(4000, function () {
+app.listen(3000, function () {
   console.log("écoute sur le port 4000");
 })
