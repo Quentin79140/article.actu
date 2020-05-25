@@ -121,6 +121,7 @@ app.post("/user/register", (req, res) => {
     res.redirect("/")
   })
 })
+
 app.get("/user/login", (req, res) => {
   res.render("login")
 })
@@ -163,6 +164,6 @@ app.get("/contact", (req, res) => {
   res.render("contact")
 })
 
-app.listen(2000, function () {
+app.listen(3000, function () {
   console.log("écoute sur le port 2000");
 })
